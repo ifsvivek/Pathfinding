@@ -123,9 +123,11 @@ canvas {
         bottom: 20px;
     }
 
-    @media (hover: none) {
-        .btn-cinematic {
-            display: none;
+    @media (hover: none)   {
+        @media not all and (pointer: fine) {
+            .btn-cinematic {
+                display: none;
+            }
         }
     }
 }
@@ -339,10 +341,27 @@ canvas {
     }
 
     @media (hover: none) {
-        display: flex;
+        @media not all and (pointer: fine) {
+            display: flex;
+        }
     }
 }
 
 .maplibregl-control-container {
     display: none;
+}
+.attrib-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    font-size: 12px;
+
+    .maplibregl-ctrl-attrib-button {
+        display: none;
+    }
+
+    a {
+        color: #fff;
+    }
 }
