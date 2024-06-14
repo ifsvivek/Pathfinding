@@ -3,6 +3,7 @@ import BidirectionalSearch from "./algorithms/BidirectionalSearch";
 import Dijkstra from "./algorithms/Dijkstra";
 import Greedy from "./algorithms/Greedy";
 import PathfindingAlgorithm from "./algorithms/PathfindingAlgorithm";
+import Prim from "./algorithms/Prims";
 
 export default class PathfindingState {
     static #instance;
@@ -19,7 +20,7 @@ export default class PathfindingState {
             this.algorithm = new PathfindingAlgorithm();
             PathfindingState.#instance = this;
         }
-    
+
         return PathfindingState.#instance;
     }
 
@@ -41,8 +42,8 @@ export default class PathfindingState {
      */
     reset() {
         this.finished = false;
-        if(!this.graph) return;
-        for(const key of this.graph.nodes.keys()) {
+        if (!this.graph) return;
+        for (const key of this.graph.nodes.keys()) {
             this.graph.nodes.get(key).reset();
         }
     }
@@ -52,7 +53,7 @@ export default class PathfindingState {
      */
     start(algorithm) {
         this.reset();
-        switch(algorithm) {
+        switch (algorithm) {
             case "astar":
                 this.algorithm = new AStar();
                 break;
@@ -64,6 +65,9 @@ export default class PathfindingState {
                 break;
             case "bidirectional":
                 this.algorithm = new BidirectionalSearch();
+                break;
+            case "prim":
+                this.algorithm = new Prim();
                 break;
             default:
                 this.algorithm = new AStar();
@@ -79,7 +83,7 @@ export default class PathfindingState {
      */
     nextStep() {
         const updatedNodes = this.algorithm.nextStep();
-        if(this.algorithm.finished || updatedNodes.length === 0) {
+        if (this.algorithm.finished || updatedNodes.length === 0) {
             this.finished = true;
         }
 
